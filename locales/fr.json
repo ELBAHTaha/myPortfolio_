@@ -19,6 +19,7 @@
     "role1": "Développeur Backend",
     "role2": "Architecte API",
     "role3": "Passionné ML",
+    "role4": "Développeur Front End",
     "scrollDown": "Défiler vers le bas"
   },
   "about": {
@@ -50,7 +51,9 @@
     "project3Title": "Plateforme E-commerce — innoland.ma",
     "project3Desc": "Plateforme e-commerce full-stack avec dashboard admin personnalisé, synchronisation WooCommerce pour produits/commandes, déployé avec CI/CD.",
     "project4Title": "Système de Gestion Scolaire",
-    "project4Desc": "Plateforme multi-rôles (admin, enseignant, étudiant) avec planification des cours, suivi des paiements et notifications email automatisées."
+    "project4Desc": "Plateforme multi-rôles (admin, enseignant, étudiant) avec planification des cours, suivi des paiements et notifications email automatisées.",
+    "project5Title": "Système de Screening de CV par IA",
+    "project5Desc": "Plateforme de recrutement full-stack sur microservices NestJS (API Gateway, Auth, Job, AI Screener). Service Python FastAPI avec Sentence Transformers et spaCy pour la correspondance sémantique CV-offre. Auth JWT + RBAC pour recruteur, candidat et admin. Cache Redis pour des réponses sous 50ms, stockage S3, CI/CD vers AWS EC2 via GitHub Actions. Tous les services containerisés avec Docker Compose."
   },
   "experience": {
     "title": "Mon Parcours",

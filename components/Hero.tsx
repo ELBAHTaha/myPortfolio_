@@ -11,14 +11,7 @@ const ParticleBackground = dynamic(() => import("./ParticleBackground"), {
   ssr: false,
 });
 
-const techBadges = [
-  { label: "Spring Boot", from: "from-green-600", to: "to-emerald-500" },
-  { label: "React", from: "from-cyan-500", to: "to-blue-600" },
-  { label: "PostgreSQL", from: "from-blue-600", to: "to-indigo-700" },
-  { label: "Docker", from: "from-sky-500", to: "to-blue-500" },
-  { label: "TensorFlow", from: "from-orange-500", to: "to-red-600" },
-  { label: "TypeScript", from: "from-blue-400", to: "to-blue-700" },
-];
+const techBadges = ["Spring Boot", "React", "PostgreSQL", "Docker", "TensorFlow", "TypeScript"];
 
 export default function Hero() {
   const { t } = useTranslation();
@@ -84,6 +77,7 @@ export default function Hero() {
               t("hero.role1"), 2000,
               t("hero.role2"), 2000,
               t("hero.role3"), 2000,
+              t("hero.role4"), 2000,
             ]}
             wrapper="span"
             speed={55}
@@ -139,14 +133,13 @@ export default function Hero() {
         >
           {techBadges.map((badge, i) => (
             <motion.span
-              key={badge.label}
-              className={`px-4 py-2 rounded-full bg-gradient-to-r ${badge.from} ${badge.to} text-white text-sm font-semibold shadow-lg cursor-default`}
-              initial={reduced ? {} : { opacity: 0, scale: 0.6 }}
+              key={badge}
+              className="px-4 py-2 rounded-full text-sm font-medium cursor-default bg-white/[0.06] text-slate-400 border border-white/[0.1] hover:border-blue-500/30 hover:text-slate-200 transition-colors duration-200"
+              initial={reduced ? {} : { opacity: 0, scale: 0.85 }}
               animate={reduced ? {} : { opacity: 1, scale: 1 }}
               transition={{ delay: 0.85 + i * 0.08, duration: 0.3 }}
-              whileHover={reduced ? {} : { scale: 1.12, y: -3 }}
             >
-              {badge.label}
+              {badge}
             </motion.span>
           ))}
         </motion.div>

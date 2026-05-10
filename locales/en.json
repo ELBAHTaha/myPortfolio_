@@ -19,6 +19,7 @@
     "role1": "Backend Developer",
     "role2": "API Architect",
     "role3": "ML Enthusiast",
+    "role4": "Front End Developer",
     "scrollDown": "Scroll down"
   },
   "about": {
@@ -50,7 +51,9 @@
     "project3Title": "E-commerce Platform — innoland.ma",
     "project3Desc": "Full-stack e-commerce platform with custom admin dashboard, WooCommerce sync for products/orders/inventory, deployed with CI/CD automation.",
     "project4Title": "School Management System",
-    "project4Desc": "Multi-role platform (admin, teacher, student) with class scheduling, payment tracking, and automated email notifications."
+    "project4Desc": "Multi-role platform (admin, teacher, student) with class scheduling, payment tracking, and automated email notifications.",
+    "project5Title": "AI Resume Screener",
+    "project5Desc": "Full-stack recruitment platform built on NestJS microservices (API Gateway, Auth, Job, AI Screener). Python FastAPI service using Sentence Transformers and spaCy for semantic resume-job matching. JWT + RBAC auth for recruiter, candidate, and admin roles. Redis caching for sub-50ms responses, resume storage on AWS S3, CI/CD to AWS EC2 via GitHub Actions. All services containerized with Docker Compose."
   },
   "experience": {
     "title": "My Journey",

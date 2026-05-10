@@ -20,31 +20,26 @@ const techCategories = [
     icon: "🖥",
     key: "skills.backend",
     pills: ["Spring Boot", "Laravel", "NestJS", "REST APIs", "Microservices", "JWT", "WebSocket"],
-    pill: "bg-blue-500/15 text-blue-300 border border-blue-500/25 hover:bg-blue-500/25",
   },
   {
     icon: "🎨",
     key: "skills.frontend",
     pills: ["React", "Next.js", "HTML5", "CSS3"],
-    pill: "bg-cyan-500/15 text-cyan-300 border border-cyan-500/25 hover:bg-cyan-500/25",
   },
   {
     icon: "🗄",
     key: "skills.dataML",
     pills: ["PostgreSQL", "Redis", "TensorFlow", "scikit-learn", "LLM APIs"],
-    pill: "bg-emerald-500/15 text-emerald-300 border border-emerald-500/25 hover:bg-emerald-500/25",
   },
   {
     icon: "⚙",
     key: "skills.devops",
     pills: ["Docker", "GitHub Actions", "CI/CD", "AWS EC2/S3", "Git"],
-    pill: "bg-orange-500/15 text-orange-300 border border-orange-500/25 hover:bg-orange-500/25",
   },
   {
     icon: "💬",
     key: "skills.languages",
     pills: ["Java", "Python", "TypeScript", "JavaScript", "SQL"],
-    pill: "bg-indigo-500/15 text-indigo-300 border border-indigo-500/25 hover:bg-indigo-500/25",
   },
 ];
 
@@ -61,14 +56,11 @@ function SkillBar({ name, level }: { name: string; level: number }) {
       </div>
       <div className="h-2 bg-white/8 rounded-full overflow-visible relative">
         <motion.div
-          className="h-full rounded-full bg-gradient-to-r from-blue-600 via-sky-500 to-blue-600 relative"
+          className="h-full rounded-full bg-gradient-to-r from-blue-700 to-indigo-600"
           initial={{ width: 0 }}
           animate={isInView ? { width: `${level}%` } : { width: 0 }}
           transition={reduced ? {} : { duration: 1.1, ease: "easeOut", delay: 0.1 }}
-        >
-          {/* Glowing tip */}
-          <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-white shadow-[0_0_8px_3px_rgba(37,99,235,0.7)]" />
-        </motion.div>
+        />
       </div>
     </div>
   );
@@ -93,7 +85,7 @@ export default function Skills() {
           <h2 className="text-4xl md:text-5xl font-black font-heading gradient-text inline-block">
             {t("skills.title")}
           </h2>
-          <div className="mt-3 mx-auto w-24 h-1 rounded-full bg-gradient-to-r from-cyan-500 to-emerald-500" />
+          <div className="mt-3 mx-auto w-24 h-1 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600" />
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-16">
@@ -133,7 +125,7 @@ export default function Skills() {
                   {cat.pills.map((pill) => (
                     <span
                       key={pill}
-                      className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-colors duration-200 cursor-default ${cat.pill}`}
+                      className="px-3 py-1.5 rounded-full text-xs font-medium cursor-default bg-white/[0.05] text-slate-400 border border-white/[0.08] hover:text-slate-200 hover:border-white/[0.16] transition-colors duration-200"
                     >
                       {pill}
                     </span>

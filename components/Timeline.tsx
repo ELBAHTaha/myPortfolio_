@@ -6,42 +6,12 @@ import { useTranslation } from "react-i18next";
 import { MapPin } from "lucide-react";
 
 const entries = [
-  {
-    id: "job1",
-    dotColor: "bg-blue-500",
-    gradient: "from-blue-600 to-indigo-600",
-    bullets: 2,
-  },
-  {
-    id: "job2",
-    dotColor: "bg-cyan-500",
-    gradient: "from-cyan-600 to-blue-600",
-    bullets: 2,
-  },
-  {
-    id: "job3",
-    dotColor: "bg-emerald-500",
-    gradient: "from-emerald-600 to-teal-600",
-    bullets: 2,
-  },
-  {
-    id: "job4",
-    dotColor: "bg-slate-400",
-    gradient: "from-slate-500 to-slate-400",
-    bullets: 1,
-  },
-  {
-    id: "job5",
-    dotColor: "bg-indigo-500",
-    gradient: "from-indigo-600 to-blue-700",
-    bullets: 2,
-  },
-  {
-    id: "job6",
-    dotColor: "bg-blue-500",
-    gradient: "from-blue-600 to-indigo-600",
-    bullets: 1,
-  },
+  { id: "job1", bullets: 2 },
+  { id: "job2", bullets: 2 },
+  { id: "job3", bullets: 2 },
+  { id: "job4", bullets: 1 },
+  { id: "job5", bullets: 2 },
+  { id: "job6", bullets: 1 },
 ];
 
 function TimelineEntry({
@@ -89,9 +59,7 @@ function TimelineEntry({
 
       {/* Center dot — only on md+ */}
       <div className="absolute hidden md:flex left-1/2 top-5 -translate-x-1/2 z-10 items-center justify-center">
-        <div
-          className={`w-5 h-5 rounded-full ${entry.dotColor} ring-4 ring-[#0a0a0f] shadow-lg`}
-        />
+        <div className="w-4 h-4 rounded-full bg-blue-600/80 ring-4 ring-[#0a0a0f]" />
       </div>
     </div>
   );
@@ -123,9 +91,7 @@ function Card({
           </div>
         )}
       </div>
-      <h3
-        className={`text-lg font-black font-heading mt-2 bg-gradient-to-r ${entry.gradient} bg-clip-text text-transparent`}
-      >
+      <h3 className="text-lg font-bold font-heading mt-2 text-white">
         {t(`experience.${entry.id}Company`)}
       </h3>
       <p className="text-sm text-slate-400 font-medium mb-3">
@@ -162,7 +128,7 @@ export default function Timeline() {
           <h2 className="text-4xl md:text-5xl font-black font-heading gradient-text inline-block">
             {t("experience.title")}
           </h2>
-          <div className="mt-3 mx-auto w-24 h-1 rounded-full bg-gradient-to-r from-cyan-500 to-emerald-500" />
+          <div className="mt-3 mx-auto w-24 h-1 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600" />
         </motion.div>
 
         {/* Timeline */}

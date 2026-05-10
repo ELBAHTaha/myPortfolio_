@@ -1,15 +1,16 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import CountUp from "react-countup";
 import { Mail, Phone, MapPin } from "lucide-react";
 
 const stats = [
-  { value: 25, suffix: "+", labelKey: "about.apisLabel", gradient: "from-blue-600 to-sky-500" },
-  { value: 5, suffix: "", labelKey: "about.internshipsLabel", gradient: "from-cyan-600 to-blue-600" },
-  { value: 89, suffix: "%", labelKey: "about.accuracyLabel", gradient: "from-emerald-600 to-teal-600" },
+  { value: 25, suffix: "+", labelKey: "about.apisLabel" },
+  { value: 5, suffix: "", labelKey: "about.internshipsLabel" },
+  { value: 89, suffix: "%", labelKey: "about.accuracyLabel" },
 ];
 
 export default function About() {
@@ -56,13 +57,19 @@ export default function About() {
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
         >
-          {/* Gradient initials avatar */}
-          <div className="relative">
-            <div className="w-48 h-48 rounded-full bg-gradient-to-br from-blue-600 via-sky-500 to-cyan-400 flex items-center justify-center text-5xl font-black text-white shadow-2xl shadow-blue-500/40 ring-4 ring-blue-500/30 animate-float">
-              TE
+          {/* Profile photo */}
+          <div className="relative animate-float">
+            <div className="w-52 h-52 rounded-full overflow-hidden ring-2 ring-blue-600/20 shadow-xl shadow-blue-900/30">
+              <Image
+                src="/profimage.jpeg"
+                alt="Taha El Bah"
+                width={208}
+                height={208}
+                className="w-full h-full object-cover object-top"
+                priority
+              />
             </div>
-            {/* Glow ring */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-600 to-sky-500 blur-2xl opacity-20 -z-10 scale-110" />
+            <div className="absolute inset-0 rounded-full bg-blue-700 blur-2xl opacity-10 -z-10 scale-110" />
           </div>
 
           {/* Contact pills */}
@@ -77,7 +84,7 @@ export default function About() {
                 href={href}
                 className="flex items-center gap-3 px-4 py-3 glass-card hover:border-blue-500/30 transition-colors duration-200 group"
               >
-                <span className="p-2 rounded-full bg-gradient-to-br from-blue-600/20 to-sky-500/20 text-blue-400 group-hover:text-sky-400 transition-colors">
+                <span className="p-2 rounded-full bg-white/[0.06] text-slate-400 group-hover:text-slate-200 transition-colors">
                   <Icon size={16} />
                 </span>
                 <span className="text-sm text-slate-300 group-hover:text-white transition-colors">
@@ -108,14 +115,12 @@ export default function About() {
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
           >
-            {stats.map(({ value, suffix, labelKey, gradient }) => (
+            {stats.map(({ value, suffix, labelKey }) => (
               <div
                 key={labelKey}
                 className="gradient-border-card p-5 text-center group hover:scale-105 transition-transform duration-200"
               >
-                <div
-                  className={`text-3xl font-black font-heading bg-gradient-to-r ${gradient} bg-clip-text text-transparent`}
-                >
+                <div className="text-3xl font-black font-heading text-white">
                   {isInView && !reduced ? (
                     <CountUp end={value} duration={2.2} suffix={suffix} enableScrollSpy scrollSpyOnce />
                   ) : (

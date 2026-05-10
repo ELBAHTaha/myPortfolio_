@@ -19,6 +19,7 @@
     "role1": "مطور Backend",
     "role2": "مهندس API",
     "role3": "متحمس لـ ML",
+    "role4": "مطور Front End",
     "scrollDown": "اسحب للأسفل"
   },
   "about": {
@@ -50,7 +51,9 @@
     "project3Title": "منصة التجارة الإلكترونية — innoland.ma",
     "project3Desc": "منصة تجارة إلكترونية متكاملة مع لوحة تحكم مخصصة، مزامنة WooCommerce للمنتجات والطلبات، نشر بـ CI/CD.",
     "project4Title": "نظام إدارة المدرسة",
-    "project4Desc": "منصة متعددة الأدوار (مدير، معلم، طالب) مع جدولة الفصول، تتبع المدفوعات، وإشعارات بريد إلكتروني تلقائية."
+    "project4Desc": "منصة متعددة الأدوار (مدير، معلم، طالب) مع جدولة الفصول، تتبع المدفوعات، وإشعارات بريد إلكتروني تلقائية.",
+    "project5Title": "فارز السير الذاتية بالذكاء الاصطناعي",
+    "project5Desc": "منصة توظيف متكاملة على microservices NestJS (API Gateway، Auth، Job، AI Screener). خدمة Python FastAPI مع Sentence Transformers وspaCy للمطابقة الدلالية بين السيرة الذاتية والوظيفة. مصادقة JWT + RBAC للمجند والمرشح والمدير. Redis للردود دون 50ms، تخزين الملفات على AWS S3، CI/CD إلى AWS EC2 عبر GitHub Actions. جميع الخدمات في حاويات Docker Compose."
   },
   "experience": {
     "title": "مسيرتي",

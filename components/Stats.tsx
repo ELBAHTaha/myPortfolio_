@@ -12,36 +12,24 @@ const statsData = [
     suffix: "+",
     labelKey: "stats.apis",
     icon: Zap,
-    gradient: "from-blue-600 to-sky-500",
-    shadow: "hover:shadow-blue-500/30",
-    iconBg: "from-blue-600 to-sky-500",
   },
   {
     value: 5,
     suffix: "",
     labelKey: "stats.internships",
     icon: Briefcase,
-    gradient: "from-cyan-600 to-blue-600",
-    shadow: "hover:shadow-cyan-500/30",
-    iconBg: "from-cyan-600 to-blue-600",
   },
   {
     value: 89,
     suffix: "%",
     labelKey: "stats.accuracy",
     icon: Brain,
-    gradient: "from-emerald-600 to-teal-600",
-    shadow: "hover:shadow-emerald-500/30",
-    iconBg: "from-emerald-600 to-teal-600",
   },
   {
     value: 30,
     suffix: "%",
     labelKey: "stats.performance",
     icon: TrendingUp,
-    gradient: "from-orange-500 to-red-600",
-    shadow: "hover:shadow-orange-500/30",
-    iconBg: "from-orange-500 to-red-600",
   },
 ];
 
@@ -63,27 +51,23 @@ export default function Stats() {
           <h2 className="text-4xl md:text-5xl font-black font-heading gradient-text inline-block">
             {t("stats.title")}
           </h2>
-          <div className="mt-3 mx-auto w-24 h-1 rounded-full bg-gradient-to-r from-cyan-500 to-emerald-500" />
+          <div className="mt-3 mx-auto w-24 h-1 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600" />
         </motion.div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
-          {statsData.map(({ value, suffix, labelKey, icon: Icon, gradient, shadow, iconBg }, i) => (
+          {statsData.map(({ value, suffix, labelKey, icon: Icon }, i) => (
             <motion.div
               key={labelKey}
-              className={`gradient-border-card p-6 text-center group hover:scale-[1.05] transition-all duration-300 hover:shadow-2xl ${shadow}`}
+              className="gradient-border-card p-6 text-center group hover:scale-[1.05] transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/10"
               initial={reduced ? {} : { opacity: 0, y: 40, scale: 0.95 }}
               animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
               transition={{ duration: 0.6, delay: i * 0.1 }}
             >
-              <div
-                className={`mx-auto mb-4 w-12 h-12 rounded-xl bg-gradient-to-br ${iconBg} flex items-center justify-center shadow-lg`}
-              >
-                <Icon size={22} className="text-white" strokeWidth={2} />
+              <div className="mx-auto mb-4 w-12 h-12 rounded-xl bg-white/[0.07] border border-white/[0.08] flex items-center justify-center text-slate-300">
+                <Icon size={22} strokeWidth={1.5} />
               </div>
 
-              <div
-                className={`text-4xl font-black font-heading bg-gradient-to-r ${gradient} bg-clip-text text-transparent mb-2`}
-              >
+              <div className="text-4xl font-black font-heading text-white mb-2">
                 {isInView && !reduced ? (
                   <CountUp
                     end={value}
