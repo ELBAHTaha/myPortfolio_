@@ -19,7 +19,7 @@ export default function Hero() {
   const { language } = useLanguage();
   const reduced = useReducedMotion();
   const cvHref =
-    language === "fr" ? "/Taha_ElBah_CVfr%20(1).pdf" : "/TahaElBahCVeng.pdf";
+    language === "fr" ? "/Taha_ElBah_CVfr%20(1).pdf" : "/TahaElBah_Resume_eng.pdf";
 
   // Staggered page-load reveal
   const ease = [0.22, 1, 0.36, 1] as const;

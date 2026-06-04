@@ -52,7 +52,7 @@ These are already present in `.env` (committed — they are public browser keys,
 ### CV download
 
 `Hero.tsx` and `Navbar.tsx` both derive the CV link from the active language:
-- `en` → `/TahaElBahCVeng.pdf`
+- `en` → `/TahaElBah_Resume_eng.pdf`
 - `fr` → `/Taha_ElBah_CVfr%20(1).pdf`
 
 Both PDFs must exist in `public/`.

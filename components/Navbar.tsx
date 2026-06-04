@@ -13,7 +13,7 @@ export default function Navbar() {
   const { t } = useTranslation();
   const { language } = useLanguage();
   const cvHref =
-    language === "fr" ? "/Taha_ElBah_CVfr%20(1).pdf" : "/TahaElBahCVeng.pdf";
+    language === "fr" ? "/Taha_ElBah_CVfr%20(1).pdf" : "/TahaElBah_Resume_eng.pdf";
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
