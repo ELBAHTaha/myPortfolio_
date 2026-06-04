@@ -9,36 +9,30 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        heading: ["var(--font-space-grotesk)", "sans-serif"],
-        body: ["var(--font-inter)", "sans-serif"],
+        display: ["var(--font-display)", "Georgia", "serif"],
+        body: ["var(--font-body)", "ui-sans-serif", "system-ui", "sans-serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       colors: {
-        "bg-primary": "#0a0a0f",
+        paper: "var(--paper)",
+        "paper-sunk": "var(--paper-sunk)",
+        ink: "var(--ink)",
+        "ink-muted": "var(--ink-muted)",
+        "ink-faint": "var(--ink-faint)",
+        accent: "var(--accent)",
+        "accent-deep": "var(--accent-deep)",
+        "on-accent": "var(--on-accent)",
+        rule: "var(--rule)",
+        "bg-primary": "var(--paper)",
       },
-      animation: {
-        float: "float 6s ease-in-out infinite",
-        "pulse-slow": "pulse 4s ease-in-out infinite",
-        "bounce-slow": "bounce 2s ease-in-out infinite",
-        gradient: "gradient 8s ease infinite",
-        "spin-slow": "spin 20s linear infinite",
-        shimmer: "shimmer 2s linear infinite",
+      borderColor: {
+        DEFAULT: "var(--rule)",
       },
-      keyframes: {
-        float: {
-          "0%, 100%": { transform: "translateY(0px)" },
-          "50%": { transform: "translateY(-20px)" },
-        },
-        gradient: {
-          "0%, 100%": { backgroundPosition: "0% 50%" },
-          "50%": { backgroundPosition: "100% 50%" },
-        },
-        shimmer: {
-          "0%": { backgroundPosition: "-200% 0" },
-          "100%": { backgroundPosition: "200% 0" },
-        },
+      maxWidth: {
+        shell: "80rem",
       },
-      backgroundSize: {
-        "300%": "300%",
+      transitionTimingFunction: {
+        editorial: "cubic-bezier(0.22, 1, 0.36, 1)",
       },
     },
   },

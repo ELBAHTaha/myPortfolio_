@@ -50,19 +50,19 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     // Console easter egg
     console.log(
       "%c\n ████████╗ █████╗ ██╗  ██╗ █████╗ \n    ██╔══╝██╔══██╗██║  ██║██╔══██╗\n    ██║   ███████║███████║███████║\n    ██║   ██╔══██║██╔══██║██╔══██║\n    ██║   ██║  ██║██║  ██║██║  ██║\n    ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝\n",
-      "color: #2563EB; font-weight: bold; font-family: monospace;"
+      "color: #E5481D; font-weight: bold; font-family: monospace;"
     );
     console.log(
-      "%c👋 Hey curious dev! You found the easter egg.",
-      "color: #0EA5E9; font-size: 16px; font-weight: bold;"
+      "%cHey curious dev — you found the easter egg.",
+      "color: #16130D; font-size: 15px; font-weight: bold; font-family: monospace;"
     );
     console.log(
-      "%c🚀 Looking for a talented backend engineer? → tahaelbah@gmail.com",
-      "color: #06B6D4; font-size: 14px;"
+      "%cLooking for a backend engineer? → tahaelbah@gmail.com",
+      "color: #E5481D; font-size: 13px; font-family: monospace;"
     );
     console.log(
-      "%c🐙 github.com/ELBAHTaha  |  🔗 linkedin.com/in/tahaelbah",
-      "color: #10B981; font-size: 13px;"
+      "%cgithub.com/ELBAHTaha  ·  linkedin.com/in/tahaelbah",
+      "color: #6A6157; font-size: 12px; font-family: monospace;"
     );
   }, []);
 

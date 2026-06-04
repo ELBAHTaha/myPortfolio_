@@ -2,164 +2,149 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { TypeAnimation } from "react-type-animation";
-import { Download, ChevronDown } from "lucide-react";
-import dynamic from "next/dynamic";
 import { useLanguage } from "@/context/LanguageContext";
 
-const ParticleBackground = dynamic(() => import("./ParticleBackground"), {
-  ssr: false,
-});
+// "TAHA EL BAH" -> "Taha El Bah" for elegant display title-case
+const toTitle = (s: string) =>
+  s.toLowerCase().replace(/\b\p{L}/gu, (c) => c.toUpperCase());
 
-const techBadges = ["Spring Boot", "React", "PostgreSQL", "Docker", "TensorFlow", "TypeScript"];
+const figures = [
+  { value: "25+", label: "about.apisLabel" },
+  { value: "05", label: "about.internshipsLabel" },
+  { value: "89%", label: "about.accuracyLabel" },
+];
 
 export default function Hero() {
   const { t } = useTranslation();
   const { language } = useLanguage();
-  const cvHref = language === "fr"
-    ? "/Taha_ElBah_CVfr%20(1).pdf"
-    : "/TahaElBahCVeng.pdf";
   const reduced = useReducedMotion();
+  const cvHref =
+    language === "fr" ? "/Taha_ElBah_CVfr%20(1).pdf" : "/TahaElBahCVeng.pdf";
 
-  const fadeUp = (delay = 0) =>
+  // Staggered page-load reveal
+  const ease = [0.22, 1, 0.36, 1] as const;
+  const reveal = (delay = 0) =>
     reduced
       ? {}
       : {
-          initial: { opacity: 0, y: 30 },
+          initial: { opacity: 0, y: 24 },
           animate: { opacity: 1, y: 0 },
-          transition: { duration: 0.65, delay, ease: "easeOut" },
+          transition: { duration: 0.8, delay, ease },
         };
 
+  const scrollToProjects = () =>
+    document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+
+  const role = `${t("hero.role0")} · ${t("hero.role1")} · ${t("hero.role3")}`;
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden mesh-bg">
-      <ParticleBackground />
-
-      {/* Ambient orbs */}
-      <div className="absolute top-1/4 left-1/5 w-[500px] h-[500px] rounded-full bg-blue-700/8 blur-[120px] pointer-events-none animate-pulse-slow" />
-      <div
-        className="absolute bottom-1/4 right-1/5 w-[500px] h-[500px] rounded-full bg-sky-700/8 blur-[120px] pointer-events-none animate-pulse-slow"
-        style={{ animationDelay: "2s" }}
-      />
-
-      <div className="relative z-10 text-center max-w-5xl mx-auto px-4 pt-24 pb-12">
-        {/* Cycling greeting */}
-        <motion.p
-          className="text-xl md:text-2xl text-slate-400 mb-3 font-body"
-          {...fadeUp(0)}
-        >
-          <TypeAnimation
-            sequence={[
-              t("hero.greeting0"), 2500,
-              t("hero.greeting1"), 2500,
-            ]}
-            wrapper="span"
-            speed={45}
-            repeat={Infinity}
-          />
-        </motion.p>
-
-        {/* Name */}
-        <motion.h1
-          className="text-5xl sm:text-7xl md:text-8xl font-black font-heading gradient-text leading-none mb-6 tracking-tight"
-          {...fadeUp(0.15)}
-        >
-          {t("hero.name")}
-        </motion.h1>
-
-        {/* Role typewriter */}
+    <section className="relative min-h-svh flex flex-col justify-center pt-28 pb-12">
+      <div className="shell w-full">
+        {/* — Eyebrow row — */}
         <motion.div
-          className="text-xl md:text-3xl font-bold font-heading mb-5 h-10 flex items-center justify-center"
-          {...fadeUp(0.3)}
+          className="flex items-baseline justify-between gap-4 pb-4 rule-b"
+          {...reveal(0)}
         >
-          <TypeAnimation
-            sequence={[
-              t("hero.role0"), 2000,
-              t("hero.role1"), 2000,
-              t("hero.role2"), 2000,
-              t("hero.role3"), 2000,
-              t("hero.role4"), 2000,
-            ]}
-            wrapper="span"
-            speed={55}
-            repeat={Infinity}
-            className="gradient-text-cyan"
-          />
+          <span className="label text-ink">
+            Portfolio <span className="text-ink-faint">/ 2026</span>
+          </span>
+          <span className="label text-ink-muted">
+            {t("about.location")} <span className="text-ink-faint">— GMT+1</span>
+          </span>
         </motion.div>
 
-        {/* Tagline */}
-        <motion.p
-          className="text-base md:text-lg text-slate-400 mb-10 max-w-xl mx-auto font-body"
-          {...fadeUp(0.45)}
-        >
-          {t("hero.tagline")}
-        </motion.p>
+        {/* — Main grid — */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-8 gap-y-12 pt-10 md:pt-16">
+          {/* Statement */}
+          <div className="lg:col-span-8 xl:col-span-9">
+            <motion.p
+              className="label text-accent mb-6 flex items-center gap-2.5"
+              {...reveal(0.1)}
+            >
+              <span
+                className="inline-block w-2 h-2 rounded-full bg-accent"
+                aria-hidden="true"
+              />
+              {role}
+            </motion.p>
 
-        {/* CTAs */}
+            <motion.h1
+              className="display text-ink"
+              {...reveal(0.18)}
+            >
+              <span className="block">{toTitle(t("hero.name")).split(" ")[0]}</span>
+              <span className="block">
+                {toTitle(t("hero.name")).split(" ").slice(1).join(" ")}
+                <span className="text-accent">.</span>
+              </span>
+            </motion.h1>
+
+            <motion.p
+              className="font-display italic text-ink-muted mt-8 max-w-2xl"
+              style={{ fontSize: "var(--step-2)", lineHeight: 1.2 }}
+              {...reveal(0.28)}
+            >
+              {t("hero.tagline")}
+            </motion.p>
+          </div>
+
+          {/* Metadata column */}
+          <motion.aside
+            className="lg:col-span-4 xl:col-span-3 lg:pt-3 flex flex-col gap-6"
+            {...reveal(0.4)}
+          >
+            <dl className="flex flex-col">
+              {[
+                { k: "Available", v: "Open to roles & freelance" },
+                { k: "Currently", v: `${t("experience.job2Role").split("·")[0].trim()} @ ${t("experience.job2Company")}` },
+                { k: "Education", v: "B.Sc. Computer Engineering" },
+              ].map((row, i) => (
+                <div
+                  key={row.k}
+                  className={`flex flex-col gap-1 py-3 ${i === 0 ? "rule-t" : ""} rule-b`}
+                >
+                  <dt className="label text-ink-faint">{row.k}</dt>
+                  <dd className="text-ink text-[0.95rem] leading-snug">{row.v}</dd>
+                </div>
+              ))}
+            </dl>
+
+            {/* Figures */}
+            <div className="grid grid-cols-3 gap-x-3 rule-t pt-4">
+              {figures.map((f) => (
+                <div key={f.label} className="flex flex-col">
+                  <span className="font-display text-ink tnum text-[1.7rem] leading-none">
+                    {f.value}
+                  </span>
+                  <span
+                    className="font-mono uppercase text-ink-muted mt-2 leading-[1.25]"
+                    style={{ fontSize: "0.56rem", letterSpacing: "0.08em" }}
+                  >
+                    {t(f.label)}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </motion.aside>
+        </div>
+
+        {/* — CTA row — */}
         <motion.div
-          className="flex flex-col sm:flex-row gap-4 justify-center mb-14"
-          {...fadeUp(0.6)}
+          className="mt-14 md:mt-20 pt-5 rule-t flex flex-wrap items-center gap-x-10 gap-y-4"
+          {...reveal(0.52)}
         >
-          <motion.button
-            onClick={() =>
-              document
-                .getElementById("projects")
-                ?.scrollIntoView({ behavior: "smooth" })
-            }
-            className="px-8 py-4 rounded-full bg-gradient-to-r from-blue-600 to-sky-500 text-white font-bold text-lg shadow-lg shadow-blue-500/30 hover:shadow-blue-500/60 transition-shadow duration-300"
-            whileHover={reduced ? {} : { scale: 1.05 }}
-            whileTap={reduced ? {} : { scale: 0.97 }}
+          <button
+            onClick={scrollToProjects}
+            className="label text-ink u-link cursor-pointer"
           >
             {t("hero.viewWork")} ↓
-          </motion.button>
-
-          <motion.a
-            href={cvHref}
-            download
-            className="flex items-center justify-center gap-2 px-8 py-4 rounded-full glass border border-blue-500/30 text-white font-bold text-lg hover:border-blue-400/60 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300"
-            whileHover={reduced ? {} : { scale: 1.05 }}
-            whileTap={reduced ? {} : { scale: 0.97 }}
-          >
-            <Download size={20} />
-            {t("hero.downloadCV")}
-          </motion.a>
-        </motion.div>
-
-        {/* Tech badges */}
-        <motion.div
-          className="flex flex-wrap gap-3 justify-center mb-16"
-          initial={reduced ? {} : { opacity: 0 }}
-          animate={reduced ? {} : { opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.8 }}
-        >
-          {techBadges.map((badge, i) => (
-            <motion.span
-              key={badge}
-              className="px-4 py-2 rounded-full text-sm font-medium cursor-default bg-white/[0.06] text-slate-400 border border-white/[0.1] hover:border-blue-500/30 hover:text-slate-200 transition-colors duration-200"
-              initial={reduced ? {} : { opacity: 0, scale: 0.85 }}
-              animate={reduced ? {} : { opacity: 1, scale: 1 }}
-              transition={{ delay: 0.85 + i * 0.08, duration: 0.3 }}
-            >
-              {badge}
-            </motion.span>
-          ))}
-        </motion.div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          className="flex flex-col items-center gap-2 text-slate-500"
-          initial={reduced ? {} : { opacity: 0 }}
-          animate={reduced ? {} : { opacity: 1 }}
-          transition={{ delay: 1.4 }}
-        >
-          <span className="text-xs tracking-widest uppercase">
+          </button>
+          <a href={cvHref} download className="label text-ink u-link">
+            {t("hero.downloadCV")} ↗
+          </a>
+          <span className="label text-ink-faint ml-auto hidden sm:inline">
             {t("hero.scrollDown")}
           </span>
-          <motion.div
-            animate={reduced ? {} : { y: [0, 8, 0] }}
-            transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <ChevronDown size={22} className="text-slate-500" />
-          </motion.div>
         </motion.div>
       </div>
     </section>

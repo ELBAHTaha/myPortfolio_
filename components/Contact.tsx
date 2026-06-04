@@ -3,7 +3,6 @@
 import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { Mail, Phone, Linkedin, Github, Send, CheckCircle } from "lucide-react";
 import emailjs from "@emailjs/browser";
 
 interface FormState {
@@ -12,19 +11,21 @@ interface FormState {
   subject: string;
   message: string;
 }
+type FormErrors = Partial<Record<keyof FormState, string>>;
 
-interface FormErrors {
-  name?: string;
-  email?: string;
-  subject?: string;
-  message?: string;
-}
+const directLinks = [
+  { k: "Email", label: "tahaelbah@gmail.com", href: "mailto:tahaelbah@gmail.com" },
+  { k: "Phone", label: "+212 6 55 75 75 81", href: "tel:+212655757581" },
+  { k: "LinkedIn", label: "linkedin.com/in/tahaelbah", href: "https://linkedin.com/in/tahaelbah" },
+  { k: "GitHub", label: "github.com/ELBAHTaha", href: "https://github.com/ELBAHTaha" },
+];
 
 export default function Contact() {
   const { t } = useTranslation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const reduced = useReducedMotion();
+  const ease = [0.22, 1, 0.36, 1] as const;
 
   const [form, setForm] = useState<FormState>({ name: "", email: "", subject: "", message: "" });
   const [errors, setErrors] = useState<FormErrors>({});
@@ -77,155 +78,159 @@ export default function Contact() {
     placeholder: string,
     type = "text",
     rows?: number
-  ) => (
-    <div>
-      <label className="block text-sm font-semibold text-slate-300 mb-1.5">
-        {label}
-      </label>
-      {rows ? (
-        <textarea
-          rows={rows}
-          value={form[key]}
-          onChange={(e) => {
-            setForm((f) => ({ ...f, [key]: e.target.value }));
-            setErrors((err) => ({ ...err, [key]: undefined }));
-          }}
-          placeholder={placeholder}
-          className={`w-full px-4 py-3 rounded-xl glass border ${
-            errors[key] ? "border-red-500/60" : "border-white/10 focus:border-blue-500/50"
-          } text-white placeholder-slate-600 text-sm outline-none transition-colors duration-200 resize-none font-body`}
-        />
-      ) : (
-        <input
-          type={type}
-          value={form[key]}
-          onChange={(e) => {
-            setForm((f) => ({ ...f, [key]: e.target.value }));
-            setErrors((err) => ({ ...err, [key]: undefined }));
-          }}
-          placeholder={placeholder}
-          className={`w-full px-4 py-3 rounded-xl glass border ${
-            errors[key] ? "border-red-500/60" : "border-white/10 focus:border-blue-500/50"
-          } text-white placeholder-slate-600 text-sm outline-none transition-colors duration-200 font-body`}
-        />
-      )}
-      <AnimatePresence>
-        {errors[key] && (
-          <motion.p
-            className="text-red-400 text-xs mt-1"
-            initial={{ opacity: 0, y: -4 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -4 }}
-          >
-            {errors[key]}
-          </motion.p>
+  ) => {
+    const shared =
+      "w-full bg-transparent border-b py-2.5 text-ink placeholder-ink-faint text-[0.95rem] outline-none transition-colors duration-200 focus:border-accent " +
+      (errors[key] ? "border-accent" : "border-rule");
+    return (
+      <div>
+        <label htmlFor={key} className="label text-ink-muted block mb-1">
+          {label}
+        </label>
+        {rows ? (
+          <textarea
+            id={key}
+            rows={rows}
+            value={form[key]}
+            onChange={(e) => {
+              setForm((f) => ({ ...f, [key]: e.target.value }));
+              setErrors((err) => ({ ...err, [key]: undefined }));
+            }}
+            placeholder={placeholder}
+            className={shared + " resize-none"}
+          />
+        ) : (
+          <input
+            id={key}
+            type={type}
+            value={form[key]}
+            onChange={(e) => {
+              setForm((f) => ({ ...f, [key]: e.target.value }));
+              setErrors((err) => ({ ...err, [key]: undefined }));
+            }}
+            placeholder={placeholder}
+            className={shared}
+          />
         )}
-      </AnimatePresence>
-    </div>
-  );
-
-  const socials = [
-    { icon: Mail, label: "tahaelbah@gmail.com", href: "mailto:tahaelbah@gmail.com" },
-    { icon: Phone, label: "+212 6 55 75 75 81", href: "tel:+212655757581" },
-    { icon: Linkedin, label: "linkedin.com/in/tahaelbah", href: "https://linkedin.com/in/tahaelbah" },
-    { icon: Github, label: "github.com/ELBAHTaha", href: "https://github.com/ELBAHTaha" },
-  ];
+        <AnimatePresence>
+          {errors[key] && (
+            <motion.p
+              className="font-mono text-[0.7rem] text-accent mt-1.5"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              {errors[key]}
+            </motion.p>
+          )}
+        </AnimatePresence>
+      </div>
+    );
+  };
 
   return (
-    <section id="contact" className="py-24 px-4">
-      <div className="max-w-7xl mx-auto" ref={ref}>
-        <motion.div
-          className="text-center mb-16"
-          initial={reduced ? {} : { opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className="text-4xl md:text-5xl font-black font-heading gradient-text inline-block">
-            {t("contact.title")}
-          </h2>
-          <div className="mt-3 mx-auto w-24 h-1 rounded-full bg-gradient-to-r from-blue-600 to-sky-500" />
-        </motion.div>
+    <section id="contact" className="py-[var(--section-y)]">
+      <div className="shell" ref={ref}>
+        {/* Header */}
+        <header className="grid grid-cols-12 items-end gap-4 border-t border-ink pt-5 mb-12 md:mb-16">
+          <div className="col-span-12 md:col-span-9 flex items-baseline gap-4">
+            <span className="label text-accent">05</span>
+            <h2
+              className="font-display text-ink"
+              style={{ fontSize: "var(--step-3)", lineHeight: 1 }}
+            >
+              {t("contact.title")}
+            </h2>
+          </div>
+          <div className="col-span-12 md:col-span-3 md:text-right">
+            <span className="label text-ink-muted flex items-center gap-2 md:justify-end">
+              <span className="w-2 h-2 rounded-full bg-accent inline-block" aria-hidden="true" />
+              Open to opportunities
+            </span>
+          </div>
+        </header>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
-          {/* Left — contact info */}
+        <div className="grid grid-cols-12 gap-x-8 gap-y-14">
+          {/* Direct links */}
           <motion.div
-            className="flex flex-col gap-5"
-            initial={reduced ? {} : { opacity: 0, x: -40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.1 }}
+            className="col-span-12 md:col-span-5"
+            initial={reduced ? {} : { opacity: 0, y: 22 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, ease }}
           >
-            {socials.map(({ icon: Icon, label, href }, i) => (
-              <motion.a
-                key={label}
-                href={href}
-                target={href.startsWith("http") ? "_blank" : undefined}
-                rel="noopener noreferrer"
-                className="flex items-center gap-4 p-4 glass-card group hover:scale-[1.02] transition-all duration-200"
-                initial={reduced ? {} : { opacity: 0, x: -20 }}
-                animate={isInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ delay: 0.2 + i * 0.08 }}
-              >
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 to-sky-500 flex items-center justify-center text-white group-hover:shadow-lg group-hover:shadow-blue-500/40 transition-shadow duration-200">
-                  <Icon size={18} />
+            <p
+              className="font-display italic text-ink-muted mb-10 max-w-sm"
+              style={{ fontSize: "var(--step-1)", lineHeight: 1.3 }}
+            >
+              Have a project, a role, or a question? Reach out directly.
+            </p>
+            <dl>
+              {directLinks.map((l, i) => (
+                <div
+                  key={l.k}
+                  className={`flex flex-col gap-1 py-4 rule-b ${i === 0 ? "rule-t" : ""}`}
+                >
+                  <dt className="label text-ink-faint">{l.k}</dt>
+                  <dd>
+                    <a
+                      href={l.href}
+                      target={l.href.startsWith("http") ? "_blank" : undefined}
+                      rel="noopener noreferrer"
+                      className="text-ink u-link text-[0.95rem]"
+                    >
+                      {l.label}
+                    </a>
+                  </dd>
                 </div>
-                <span className="text-slate-300 group-hover:text-white transition-colors text-sm font-medium">
-                  {label}
-                </span>
-              </motion.a>
-            ))}
+              ))}
+            </dl>
           </motion.div>
 
-          {/* Right — form */}
+          {/* Form */}
           <motion.div
-            className="glass-card p-8"
-            initial={reduced ? {} : { opacity: 0, x: 40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.15 }}
+            className="col-span-12 md:col-span-6 md:col-start-7"
+            initial={reduced ? {} : { opacity: 0, y: 22 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.12, ease }}
           >
             <AnimatePresence mode="wait">
               {submitted ? (
                 <motion.div
                   key="success"
-                  className="flex flex-col items-center justify-center py-16 gap-4"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ type: "spring", bounce: 0.4 }}
+                  className="border-t border-ink pt-10"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
                 >
-                  <div className="w-20 h-20 rounded-full bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center shadow-xl shadow-emerald-500/30">
-                    <CheckCircle size={40} className="text-white" />
-                  </div>
-                  <p className="text-white font-bold text-lg text-center">
-                    {t("contact.successMessage")}
+                  <p
+                    className="font-display text-ink mb-3"
+                    style={{ fontSize: "var(--step-2)", lineHeight: 1.1 }}
+                  >
+                    Message sent<span className="text-accent">.</span>
                   </p>
+                  <p className="text-ink-muted">{t("contact.successMessage")}</p>
                 </motion.div>
               ) : (
                 <motion.form
                   key="form"
                   onSubmit={handleSubmit}
-                  className="flex flex-col gap-4"
-                  initial={{ opacity: 1 }}
+                  className="flex flex-col gap-6"
                   exit={{ opacity: 0 }}
                   noValidate
                 >
-                  {field("name", t("contact.nameLabel"), t("contact.namePlaceholder"))}
-                  {field("email", t("contact.emailLabel"), t("contact.emailPlaceholder"), "email")}
+                  <div className="grid sm:grid-cols-2 gap-6">
+                    {field("name", t("contact.nameLabel"), t("contact.namePlaceholder"))}
+                    {field("email", t("contact.emailLabel"), t("contact.emailPlaceholder"), "email")}
+                  </div>
                   {field("subject", t("contact.subjectLabel"), t("contact.subjectPlaceholder"))}
                   {field("message", t("contact.messageLabel"), t("contact.messagePlaceholder"), "text", 4)}
 
-                  <motion.button
+                  <button
                     type="submit"
                     disabled={sending}
-                    className="flex items-center justify-center gap-2 w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-sky-500 text-white font-bold text-base shadow-lg shadow-blue-500/25 hover:shadow-blue-500/50 transition-shadow duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
-                    whileHover={reduced ? {} : { scale: 1.02 }}
-                    whileTap={reduced ? {} : { scale: 0.98 }}
+                    className="label self-start px-6 py-3 border border-ink text-ink hover:bg-ink hover:text-paper transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                   >
-                    {sending ? (
-                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    ) : (
-                      <Send size={18} />
-                    )}
-                    {sending ? "Sending..." : t("contact.sendButton")}
-                  </motion.button>
+                    {sending ? "Sending…" : `${t("contact.sendButton")} →`}
+                  </button>
                 </motion.form>
               )}
             </AnimatePresence>

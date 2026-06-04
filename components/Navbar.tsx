@@ -3,27 +3,25 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { Download, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useLanguage } from "@/context/LanguageContext";
 
-const navSections = ["about", "projects", "skills", "experience", "contact"];
+const navSections = ["about", "experience", "projects", "skills", "contact"];
 
 export default function Navbar() {
   const { t } = useTranslation();
   const { language } = useLanguage();
-  const cvHref = language === "fr"
-    ? "/Taha_ElBah_CVfr%20(1).pdf"
-    : "/TahaElBahCVeng.pdf";
+  const cvHref =
+    language === "fr" ? "/Taha_ElBah_CVfr%20(1).pdf" : "/TahaElBahCVeng.pdf";
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
     const onScroll = () => {
-      setScrolled(window.scrollY > 60);
-
-      const pos = window.scrollY + 120;
+      setScrolled(window.scrollY > 40);
+      const pos = window.scrollY + 140;
       let current = "";
       for (const id of navSections) {
         const el = document.getElementById(id);
@@ -31,7 +29,7 @@ export default function Navbar() {
       }
       setActiveSection(current);
     };
-
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -43,102 +41,106 @@ export default function Navbar() {
 
   return (
     <motion.nav
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled ? "py-3 glass shadow-xl shadow-black/30" : "py-5"
+      className={`fixed top-0 inset-x-0 z-50 transition-[background-color,border-color,padding] duration-300 ${
+        scrolled
+          ? "bg-paper/90 backdrop-blur-sm border-b border-rule py-3"
+          : "border-b border-transparent py-5"
       }`}
-      initial={{ y: -80, opacity: 0 }}
+      initial={{ y: -60, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-        {/* Logo */}
-        <motion.button
-          className="text-2xl font-black font-heading gradient-text"
+      <div className="shell flex items-center justify-between gap-6">
+        {/* Wordmark */}
+        <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.97 }}
+          className="font-display text-xl text-ink leading-none cursor-pointer shrink-0"
+          aria-label="Back to top"
         >
-          T.ElBah
-        </motion.button>
+          Taha El Bah<span className="text-accent">.</span>
+        </button>
 
         {/* Desktop links */}
         <div className="hidden md:flex items-center gap-7">
-          {navSections.map((id) => (
+          {navSections.map((id, i) => (
             <button
               key={id}
               onClick={() => scrollTo(id)}
-              className="relative text-sm font-medium group"
+              aria-current={activeSection === id ? "true" : undefined}
+              className="group flex items-baseline gap-1.5 cursor-pointer"
             >
+              <span className="font-mono text-[0.62rem] text-ink-faint tabular-nums">
+                {String(i + 1).padStart(2, "0")}
+              </span>
               <span
-                className={`transition-colors duration-200 ${
-                  activeSection === id ? "text-white" : "text-slate-400 hover:text-white"
+                className={`label transition-colors duration-200 ${
+                  activeSection === id
+                    ? "text-ink u-link-static"
+                    : "text-ink-muted group-hover:text-ink"
                 }`}
               >
                 {t(`nav.${id}`)}
               </span>
-              <span
-                className={`absolute -bottom-0.5 left-0 h-[2px] bg-gradient-to-r from-blue-500 to-sky-500 transition-all duration-200 rounded-full ${
-                  activeSection === id ? "w-full" : "w-0 group-hover:w-full"
-                }`}
-              />
             </button>
           ))}
         </div>
 
-        {/* Desktop right */}
-        <div className="hidden md:flex items-center gap-3">
+        {/* Right cluster */}
+        <div className="hidden md:flex items-center gap-6">
           <LanguageSwitcher />
-          <motion.a
+          <a
             href={cvHref}
             download
-            className="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-600 to-sky-500 text-white text-sm font-semibold shadow-lg shadow-blue-500/25 hover:shadow-blue-500/50 transition-shadow duration-200"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            className="label px-4 py-2 border border-ink text-ink hover:bg-ink hover:text-paper transition-colors duration-200"
           >
-            <Download size={14} />
-            {t("nav.downloadCV")}
-          </motion.a>
+            {t("nav.downloadCV")} ↓
+          </a>
         </div>
 
         {/* Mobile toggle */}
-        <motion.button
-          className="md:hidden text-white p-2"
+        <button
+          className="md:hidden text-ink p-1.5 -mr-1.5 cursor-pointer"
           onClick={() => setMobileOpen((v) => !v)}
-          whileTap={{ scale: 0.9 }}
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
+          aria-expanded={mobileOpen}
         >
           {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-        </motion.button>
+        </button>
       </div>
 
       {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            className="md:hidden mx-4 mt-2 p-5 glass rounded-2xl flex flex-col gap-4"
-            initial={{ opacity: 0, y: -12, scale: 0.97 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -12, scale: 0.97 }}
-            transition={{ duration: 0.2 }}
+            className="md:hidden bg-paper border-t border-rule mt-3"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
           >
-            {navSections.map((id) => (
-              <button
-                key={id}
-                onClick={() => scrollTo(id)}
-                className="text-left text-slate-300 hover:text-white transition-colors font-medium"
-              >
-                {t(`nav.${id}`)}
-              </button>
-            ))}
-            <div className="flex items-center justify-between pt-2 border-t border-white/10">
-              <LanguageSwitcher />
-              <a
-                href={cvHref}
-                download
-                className="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-600 to-sky-500 text-white text-sm font-semibold"
-              >
-                <Download size={14} />
-                CV
-              </a>
+            <div className="shell py-4 flex flex-col">
+              {navSections.map((id, i) => (
+                <button
+                  key={id}
+                  onClick={() => scrollTo(id)}
+                  className="flex items-baseline gap-3 py-3 rule-b text-left cursor-pointer"
+                >
+                  <span className="font-mono text-[0.62rem] text-ink-faint tabular-nums">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="label text-ink">{t(`nav.${id}`)}</span>
+                </button>
+              ))}
+              <div className="flex items-center justify-between pt-4">
+                <LanguageSwitcher />
+                <a
+                  href={cvHref}
+                  download
+                  className="label px-4 py-2 border border-ink text-ink"
+                >
+                  {t("nav.downloadCV")} ↓
+                </a>
+              </div>
             </div>
           </motion.div>
         )}

@@ -3,46 +3,26 @@
 import { useRef } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { ExternalLink, Github } from "lucide-react";
 
 const projects = [
   {
-    id: "project1",
-    gradient: "from-blue-700 to-indigo-700",
-    badge: "Live",
-    tags: ["Spring Boot", "PostgreSQL", "JWT", "RBAC", "REST API"],
-    liveUrl: null,
-    githubUrl: "https://github.com/rilybricoule/rilybricoule-backend",
-  },
-  {
     id: "project5",
-    gradient: "from-indigo-800 to-blue-700",
     badge: "Open Source",
-    tags: ["NestJS", "Python", "FastAPI", "spaCy", "Redis", "AWS S3", "Docker", "React"],
+    tags: ["NestJS", "FastAPI", "Next.js", "PostgreSQL", "Redis", "AWS"],
     liveUrl: null,
     githubUrl: "https://github.com/ELBAHTaha/AIresumeScreener",
   },
   {
     id: "project3",
-    gradient: "from-blue-800 to-slate-700",
     badge: "Live",
-    tags: ["Laravel", "React", "WooCommerce API", "CI/CD", "Hostinger"],
+    tags: ["Laravel", "React", "WooCommerce", "SQL", "CI/CD"],
     liveUrl: "https://innoland.ma",
     githubUrl: null,
   },
   {
     id: "project2",
-    gradient: "from-indigo-700 to-blue-800",
-    badge: "ML",
-    tags: ["TypeScript", "Python", "SQL", "ML", "React"],
-    liveUrl: null,
-    githubUrl: "https://github.com/ELBAHTaha",
-  },
-  {
-    id: "project4",
-    gradient: "from-slate-600 to-blue-700",
-    badge: "Open Source",
-    tags: ["TypeScript", "Laravel", "React", "MySQL"],
+    badge: "Machine Learning",
+    tags: ["TypeScript", "Python", "SQL", "React"],
     liveUrl: null,
     githubUrl: "https://github.com/ELBAHTaha",
   },
@@ -53,97 +33,126 @@ export default function Projects() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const reduced = useReducedMotion();
+  const ease = [0.22, 1, 0.36, 1] as const;
 
   return (
-    <section id="projects" className="py-24 px-4">
-      <div className="max-w-7xl mx-auto" ref={ref}>
-        {/* Title */}
-        <motion.div
-          className="text-center mb-16"
-          initial={reduced ? {} : { opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className="text-4xl md:text-5xl font-black font-heading gradient-text inline-block">
-            {t("projects.title")}
-          </h2>
-          <div className="mt-3 mx-auto w-24 h-1 rounded-full bg-gradient-to-r from-blue-600 to-sky-500" />
-        </motion.div>
-
-        {/* Grid */}
-        <div className="grid md:grid-cols-2 gap-6">
-          {projects.map((project, i) => (
-            <motion.div
-              key={project.id}
-              className="gradient-border-card group hover:scale-[1.02] transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/10"
-              initial={reduced ? {} : { opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
+    <section id="projects" className="py-[var(--section-y)]">
+      <div className="shell" ref={ref}>
+        {/* Section header */}
+        <header className="grid grid-cols-12 items-end gap-4 border-t border-ink pt-5 mb-12 md:mb-16">
+          <div className="col-span-12 md:col-span-9 flex items-baseline gap-4">
+            <span className="label text-accent">03</span>
+            <h2
+              className="font-display text-ink"
+              style={{ fontSize: "var(--step-3)", lineHeight: 1 }}
             >
-              {/* Header banner */}
-              <div
-                className={`h-2 w-full rounded-t-2xl bg-gradient-to-r ${project.gradient}`}
-              />
+              {t("projects.title")}
+            </h2>
+          </div>
+          <div className="col-span-12 md:col-span-3 md:text-right">
+            <span className="label text-ink-muted">
+              {projects.length} selected
+            </span>
+          </div>
+        </header>
 
-              <div className="p-6">
-                {/* Badge + title */}
-                <div className="flex items-start justify-between gap-3 mb-3">
-                  <div>
-                    <span className="text-xs font-semibold text-slate-500 uppercase tracking-widest">
-                      {project.badge}
+        {/* Entries */}
+        <ol>
+          {projects.map((p, i) => {
+            const primary = p.liveUrl ?? p.githubUrl;
+            const title = t(`${"projects."}${p.id}Title`);
+            return (
+              <motion.li
+                key={p.id}
+                className="group border-t border-rule last:border-b"
+                initial={reduced ? {} : { opacity: 0, y: 28 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: i * 0.08, ease }}
+              >
+                <div className="grid grid-cols-12 gap-x-4 gap-y-5 py-8 md:py-10">
+                  {/* Index */}
+                  <div className="col-span-12 md:col-span-1">
+                    <span className="font-mono tabular-nums text-sm text-ink-faint transition-colors duration-200 group-hover:text-accent">
+                      {String(i + 1).padStart(2, "0")}
                     </span>
-                    <h3 className="text-lg font-bold font-heading text-white mt-1 leading-tight">
-                      {t(`projects.${project.id}Title`)}
-                    </h3>
+                  </div>
+
+                  {/* Title + description */}
+                  <div className="col-span-12 md:col-span-7">
+                    {primary ? (
+                      <a
+                        href={primary}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-start gap-2 group/title"
+                      >
+                        <h3
+                          className="font-display text-ink leading-[1.05] transition-colors duration-200 group-hover:text-accent"
+                          style={{ fontSize: "var(--step-2)" }}
+                        >
+                          {title}
+                        </h3>
+                        <span
+                          aria-hidden="true"
+                          className="mt-1 text-ink-faint transition-all duration-200 group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                        >
+                          ↗
+                        </span>
+                      </a>
+                    ) : (
+                      <h3
+                        className="font-display text-ink leading-[1.05]"
+                        style={{ fontSize: "var(--step-2)" }}
+                      >
+                        {title}
+                      </h3>
+                    )}
+                    <p className="text-ink-muted mt-4 max-w-xl leading-relaxed text-[0.95rem]">
+                      {t(`${"projects."}${p.id}Desc`)}
+                    </p>
+                  </div>
+
+                  {/* Meta */}
+                  <div className="col-span-12 md:col-span-4 flex flex-col gap-4 md:items-end">
+                    <span className="label text-ink">{p.badge}</span>
+                    <ul className="flex flex-wrap gap-x-3 gap-y-1.5 md:justify-end">
+                      {p.tags.map((tag) => (
+                        <li
+                          key={tag}
+                          className="font-mono text-[0.7rem] text-ink-muted tracking-wide"
+                        >
+                          {tag}
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="flex gap-5 md:justify-end mt-1">
+                      {p.liveUrl && (
+                        <a
+                          href={p.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="label text-ink u-link"
+                        >
+                          {t("projects.liveDemo")} ↗
+                        </a>
+                      )}
+                      {p.githubUrl && (
+                        <a
+                          href={p.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="label text-ink u-link"
+                        >
+                          {t("projects.github")} ↗
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
-
-                {/* Description */}
-                <p className="text-slate-400 text-sm leading-relaxed mb-4">
-                  {t(`projects.${project.id}Desc`)}
-                </p>
-
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2 mb-5">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-2.5 py-1 rounded-full bg-white/6 text-slate-400 text-xs font-medium border border-white/8"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Links */}
-                <div className="flex gap-3">
-                  {project.liveUrl && (
-                    <a
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r ${project.gradient} text-white text-xs font-bold hover:opacity-90 transition-opacity`}
-                    >
-                      <ExternalLink size={12} />
-                      {t("projects.liveDemo")}
-                    </a>
-                  )}
-                  {project.githubUrl && (
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 px-4 py-2 rounded-full glass border border-white/10 text-slate-300 text-xs font-bold hover:text-white hover:border-white/20 transition-colors"
-                    >
-                      <Github size={12} />
-                      {t("projects.github")}
-                    </a>
-                  )}
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+              </motion.li>
+            );
+          })}
+        </ol>
       </div>
     </section>
   );

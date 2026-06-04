@@ -14,9 +14,11 @@ No lint or test scripts are configured.
 
 ## Architecture
 
-Single-page Next.js 15 portfolio. The only route is `app/page.tsx`, which renders all sections in order: `Navbar → Hero → About → Skills → Projects → Timeline → Stats → Contact → Footer`.
+Single-page Next.js 15 portfolio. The only route is `app/page.tsx`, which renders all sections in order: `Navbar → Hero → About → Timeline → Projects → Skills → Stats → Contact → Footer`. Sections carry numbered editorial markers (`01 About`, `02 Experience`, `03 Projects`, `04 Skills`, `05 Contact`) that match this reading order and the `Navbar` links. (`Timeline` renders the "Experience" section; `Stats` is an unnumbered impact band.)
 
 Every component in `components/` is a client component (`"use client"`). There are no server components outside of the root layout.
+
+The design language is **Editorial Technical** — a print/Swiss-grotesque feel: warm paper ground, near-black ink, a single vermilion accent, hairline rules, numbered section markers, and type-led layouts. Avoid reintroducing gradients, glassmorphism, glows, particle/blob backgrounds, or emoji icons.
 
 ### Internationalisation
 
@@ -31,9 +33,9 @@ When adding a new translatable string, add the key to **all three** locale files
 
 ### Animations
 
-All animated components use `useReducedMotion()` from Framer Motion and short-circuit to `{}` (no animation) when the user has reduced-motion enabled. Follow this pattern for any new animated element.
+All animated components use `useReducedMotion()` from Framer Motion and short-circuit to `{}` (no animation) when the user has reduced-motion enabled. Follow this pattern for any new animated element. `globals.css` also collapses transitions/animations under `@media (prefers-reduced-motion: reduce)` and pauses the skills marquee.
 
-`ParticleBackground` is loaded with `next/dynamic` + `ssr: false` (canvas cannot render on the server) and also skips initialisation when `prefers-reduced-motion` is set.
+Motion is restrained and CSS-first: a staggered page-load reveal in `Hero`, scroll-triggered `useInView` reveals per section, and the CSS marquee ticker in `Skills` (`.marquee` / `.marquee-track`).
 
 ### Contact form
 
@@ -57,12 +59,13 @@ Both PDFs must exist in `public/`.
 
 ### Styling
 
-Tailwind is the primary styling mechanism. Utility classes like `glass`, `glass-card`, `gradient-text`, `gradient-text-cyan`, and `mesh-bg` are defined in `app/globals.css` (not in `tailwind.config.ts`).
+Tailwind is the primary styling mechanism, driven by CSS variables. The design tokens live in `app/globals.css` under `:root` — colour (`--paper`, `--ink`, `--ink-muted`, `--ink-faint`, `--accent`, `--rule`), a fluid type scale (`--step--1`…`--display`), spacing (`--section-y`, `--gutter`, `--maxw`), and motion (`--ease`, `--dur`). These are exposed to Tailwind in `tailwind.config.ts` as `bg-paper`, `text-ink`, `text-accent`, etc.
 
-Fonts are loaded via `next/font/google` in the root layout:
-- `--font-space-grotesk` → `font-heading`
-- `--font-inter` → `font-body`
+Key helper classes (in `globals.css`, not the config): `shell` (max-width container), `label` (mono uppercase metadata), `display`/`font-display`, `u-link` / `u-link-static` (animated editorial underline), `rule-t` / `rule-b` (hairlines), `section-marker`, `tnum` (tabular figures), `grain` (paper-noise overlay rendered once in the root layout), and the `marquee` ticker.
 
-### GitHub stats
+Fonts are self-hosted via `next/font/google` in the root layout:
+- `--font-display` → Fraunces (high-contrast serif, the identity; `font-display`)
+- `--font-body` → Mona Sans (`font-body`)
+- `--font-mono` → JetBrains Mono — accent only, for labels/metadata/figures (`font-mono`)
 
-`components/GitHubStats.tsx` embeds external badge images from `github-readme-stats.vercel.app` and `github-readme-streak-stats.herokuapp.com`. These domains are allow-listed in `next.config.js`. The component renders a fallback UI when images fail to load.
+The favicon is `app/icon.svg` (ink square, serif `T`, vermilion dot).

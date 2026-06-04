@@ -1,0 +1,41 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000)",
+      "Read(//c/Program Files/Google/Chrome/Application/**)",
+      "Read(//c/Program Files \\(x86\\)/Microsoft/Edge/Application/**)",
+      "Bash(node scripts/shot.mjs \"http://localhost:3001/\" \"$\\(pwd\\)/hero.png\" 1440 1000 0 reduce)",
+      "Bash(node scripts/diag.mjs)",
+      "Bash(node scripts/shot.mjs \"http://localhost:3000/\" \"$\\(pwd\\)/hero.png\" 1440 1000 0 reduce)",
+      "Bash(node scripts/shot.mjs \"http://localhost:3000/#projects\" \"$\\(pwd\\)/shot-projects.png\" 1440 1400 0 reduce)",
+      "Bash(node scripts/shot.mjs \"http://localhost:3000/#projects\" \"$\\(pwd\\)/shot-projects2.png\" 1440 920 0 reduce)",
+      "Bash(node scripts/shot.mjs \"http://localhost:3000/#about\" \"$\\(pwd\\)/shot-about.png\" 1440 1000 0 reduce)",
+      "Bash(node scripts/shot.mjs \"http://localhost:3000/#skills\" \"$\\(pwd\\)/shot-skills.png\" 1440 1000 0 reduce)",
+      "Bash(node scripts/shot.mjs \"http://localhost:3000/#experience\" \"$\\(pwd\\)/shot-exp.png\" 1440 1050 0 reduce)",
+      "Bash(node scripts/shot.mjs \"http://localhost:3000/#contact\" \"$\\(pwd\\)/shot-contact.png\" 1440 1100 0 reduce)",
+      "Bash(npm uninstall *)",
+      "Bash(npm start *)",
+      "Bash(break)",
+      "Bash(node scripts/shot.mjs \"http://localhost:3000/\" \"$\\(pwd\\)/full-desktop.png\" 1440 900 1 reduce)",
+      "Bash(node scripts/shot.mjs \"http://localhost:3000/\" \"$\\(pwd\\)/full-mobile.png\" 390 844 1 reduce)",
+      "Bash(node scripts/shot.mjs)",
+      "Bash(node scripts/shot.mjs \"http://localhost:3000/\" \"$\\(pwd\\)/final-hero.png\" 1440 1000 0 reduce)",
+      "Bash(cd /c/Users/dell/taha-portfolio *)",
+      "Bash(node -e \"for \\(const f of ['en','fr','ar']\\) { JSON.parse\\(require\\('fs'\\).readFileSync\\('locales/'+f+'.json','utf8'\\)\\); console.log\\(f, 'JSON ok'\\); }\")",
+      "Bash(node scripts/shot.mjs \"http://localhost:3000/\" \"$\\(pwd\\)/v-full.png\" 1440 900 1 reduce)",
+      "Bash(node scripts/shot.mjs \"http://localhost:3000/#experience\" \"$\\(pwd\\)/v-exp.png\" 1440 1050 0 reduce)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/)",
+      "Bash(curl -s http://localhost:3000/)",
+      "Bash(npx next *)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://localhost:3100/)",
+      "Bash(node scripts/shot.mjs \"http://localhost:3100/\" \"$\\(pwd\\)/v-full.png\" 1440 900 1 reduce)",
+      "Bash(node scripts/shot.mjs \"http://localhost:3100/#experience\" \"$\\(pwd\\)/v-exp.png\" 1440 1050 0 reduce)",
+      "Bash(node scripts/shot.mjs \"http://localhost:3100/\" \"$\\(pwd\\)/v-hero.png\" 1440 760 0 reduce)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\dell\\taha-portfolio",
+      "c:\\Users\\dell\\.claude\\projects\\c--Users-dell-taha-portfolio\\memory"
+    ]
+  }
+}

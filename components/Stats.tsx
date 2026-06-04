@@ -3,34 +3,12 @@
 import { useRef } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import CountUp from "react-countup";
-import { Zap, Briefcase, Brain, TrendingUp } from "lucide-react";
 
-const statsData = [
-  {
-    value: 25,
-    suffix: "+",
-    labelKey: "stats.apis",
-    icon: Zap,
-  },
-  {
-    value: 5,
-    suffix: "",
-    labelKey: "stats.internships",
-    icon: Briefcase,
-  },
-  {
-    value: 89,
-    suffix: "%",
-    labelKey: "stats.accuracy",
-    icon: Brain,
-  },
-  {
-    value: 30,
-    suffix: "%",
-    labelKey: "stats.performance",
-    icon: TrendingUp,
-  },
+const figures = [
+  { value: "25+", labelKey: "stats.apis" },
+  { value: "05", labelKey: "stats.internships" },
+  { value: "89%", labelKey: "stats.accuracy" },
+  { value: "30%", labelKey: "stats.performance" },
 ];
 
 export default function Stats() {
@@ -38,51 +16,30 @@ export default function Stats() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const reduced = useReducedMotion();
+  const ease = [0.22, 1, 0.36, 1] as const;
 
   return (
-    <section className="py-24 px-4 bg-white/[0.01]">
-      <div className="max-w-7xl mx-auto" ref={ref}>
-        <motion.div
-          className="text-center mb-16"
-          initial={reduced ? {} : { opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className="text-4xl md:text-5xl font-black font-heading gradient-text inline-block">
-            {t("stats.title")}
-          </h2>
-          <div className="mt-3 mx-auto w-24 h-1 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600" />
-        </motion.div>
-
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
-          {statsData.map(({ value, suffix, labelKey, icon: Icon }, i) => (
+    <section className="pb-[var(--section-y)]">
+      <div className="shell" ref={ref}>
+        <p className="label text-ink-muted mb-6">{t("stats.title")}</p>
+        <div className="grid grid-cols-2 md:grid-cols-4 border-t border-ink">
+          {figures.map((f, i) => (
             <motion.div
-              key={labelKey}
-              className="gradient-border-card p-6 text-center group hover:scale-[1.05] transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/10"
-              initial={reduced ? {} : { opacity: 0, y: 40, scale: 0.95 }}
-              animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
+              key={f.labelKey}
+              className="flex flex-col gap-3 py-8 md:py-10 border-b border-rule md:border-b-0 md:border-r md:border-rule last:border-r-0 md:pr-4 [&:nth-child(odd)]:pr-4 md:[&:nth-child(odd)]:pr-4"
+              initial={reduced ? {} : { opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.55, delay: i * 0.08, ease }}
             >
-              <div className="mx-auto mb-4 w-12 h-12 rounded-xl bg-white/[0.07] border border-white/[0.08] flex items-center justify-center text-slate-300">
-                <Icon size={22} strokeWidth={1.5} />
-              </div>
-
-              <div className="text-4xl font-black font-heading text-white mb-2">
-                {isInView && !reduced ? (
-                  <CountUp
-                    end={value}
-                    duration={2.5}
-                    suffix={suffix}
-                    enableScrollSpy
-                    scrollSpyOnce
-                  />
-                ) : (
-                  `${value}${suffix}`
-                )}
-              </div>
-              <p className="text-slate-400 text-xs font-medium leading-tight">
-                {t(labelKey)}
-              </p>
+              <span
+                className="font-display text-ink tnum leading-[0.9]"
+                style={{ fontSize: "var(--step-4)" }}
+              >
+                {f.value}
+              </span>
+              <span className="label text-ink-muted leading-tight max-w-[14ch]">
+                {t(f.labelKey)}
+              </span>
             </motion.div>
           ))}
         </div>
