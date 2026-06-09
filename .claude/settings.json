@@ -31,7 +31,8 @@
       "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://localhost:3100/)",
       "Bash(node scripts/shot.mjs \"http://localhost:3100/\" \"$\\(pwd\\)/v-full.png\" 1440 900 1 reduce)",
       "Bash(node scripts/shot.mjs \"http://localhost:3100/#experience\" \"$\\(pwd\\)/v-exp.png\" 1440 1050 0 reduce)",
-      "Bash(node scripts/shot.mjs \"http://localhost:3100/\" \"$\\(pwd\\)/v-hero.png\" 1440 760 0 reduce)"
+      "Bash(node scripts/shot.mjs \"http://localhost:3100/\" \"$\\(pwd\\)/v-hero.png\" 1440 760 0 reduce)",
+      "PowerShell(npm i @vercel/analytics)"
     ],
     "additionalDirectories": [
       "C:\\Users\\dell\\taha-portfolio",
