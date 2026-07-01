@@ -6,23 +6,37 @@ import { useTranslation } from "react-i18next";
 
 const projects = [
   {
-    id: "project5",
+    id: "ontarioPost",
+    badge: "Live",
+    tags: ["React", "PHP", "MySQL", "n8n"],
+    liveUrl: "https://ontariopost.ca",
+    githubUrl: null,
+  },
+  {
+    id: "aiResumeScreener",
     badge: "Open Source",
     tags: ["NestJS", "FastAPI", "Next.js", "PostgreSQL", "Redis", "AWS"],
     liveUrl: null,
     githubUrl: "https://github.com/ELBAHTaha/AIresumeScreener",
   },
   {
-    id: "project3",
+    id: "keyinov",
+    badge: "Live",
+    tags: ["React", "Laravel", "MySQL", "CI/CD"],
+    liveUrl: "https://keyinov.com",
+    githubUrl: null,
+  },
+  {
+    id: "ecommerce",
     badge: "Live",
     tags: ["Laravel", "React", "WooCommerce", "SQL", "CI/CD"],
     liveUrl: "https://innoland.ma",
     githubUrl: null,
   },
   {
-    id: "project2",
+    id: "spx500",
     badge: "Machine Learning",
-    tags: ["TypeScript", "Python", "SQL", "React"],
+    tags: ["Python", "scikit-learn", "XGBoost", "SHAP"],
     liveUrl: null,
     githubUrl: "https://github.com/ELBAHTaha",
   },

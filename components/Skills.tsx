@@ -19,7 +19,7 @@ const categories = [
   },
   {
     key: "skills.devops",
-    items: ["Docker", "GitHub Actions", "CI/CD", "AWS EC2 / S3", "Git", "Agile Scrum"],
+    items: ["Docker", "GitHub Actions", "CI/CD", "n8n", "AWS EC2 / S3", "Git", "Agile Scrum"],
   },
   {
     key: "skills.languages",
@@ -30,12 +30,26 @@ const categories = [
 // Flattened, de-duplicated marquee of every technology
 const ticker = Array.from(new Set(categories.flatMap((c) => c.items)));
 
+// Spoken languages — translation keys, rendered as a final row (kept out of the ticker)
+const spokenLanguages = [
+  "skills.spokenArabic",
+  "skills.spokenFrench",
+  "skills.spokenEnglish",
+  "skills.spokenTurkish",
+];
+
 export default function Skills() {
   const { t } = useTranslation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const reduced = useReducedMotion();
   const ease = [0.22, 1, 0.36, 1] as const;
+
+  // Tech categories + a translated spoken-languages row, sharing one ruled list
+  const rows = [
+    ...categories,
+    { key: "skills.spoken", items: spokenLanguages.map((k) => t(k)) },
+  ];
 
   return (
     <section id="skills" className="py-[var(--section-y)]">
@@ -81,7 +95,7 @@ export default function Skills() {
       {/* Ruled category list */}
       <div className="shell mt-12 md:mt-16">
         <ul>
-          {categories.map((cat, i) => (
+          {rows.map((cat, i) => (
             <motion.li
               key={cat.key}
               className="grid grid-cols-12 gap-x-4 gap-y-2 py-6 border-t border-rule last:border-b"
