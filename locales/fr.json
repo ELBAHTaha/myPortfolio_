@@ -24,7 +24,7 @@
   },
   "about": {
     "title": "À Propos de Moi",
-    "bio": "Ingénieur logiciel full-stack, je conçois des applications de production avec React, Spring Boot, NestJS, Laravel et PostgreSQL. J'ai livré des plateformes web, des systèmes pilotés par l'IA et des APIs backend évolutives — 25+ APIs REST en production, des endpoints optimisés sous 200ms — du développement au déploiement et à la maintenance.",
+    "bio": "Ingénieur logiciel full-stack avec une expérience concrète dans la création d'applications de production avec React, Spring Boot, NestJS, Laravel et PostgreSQL. Je conçois et déploie des plateformes web, des systèmes alimentés par l'IA et des APIs backend évolutives, du développement à la mise en production et à la maintenance.",
     "apisLabel": "APIs Construites",
     "internshipsLabel": "Stages",
     "accuracyLabel": "Précision ML",
@@ -47,6 +47,10 @@
   },
   "projects": {
     "title": "Ce Que J'ai Construit",
+    "all": "Tous les projets",
+    "webPlatforms": "Plateformes web",
+    "aiData": "IA & données",
+    "selectedCount": "{{count}} sélectionnés",
     "liveDemo": "Démo Live",
     "github": "GitHub",
     "ontarioPostTitle": "The Ontario Post — Plateforme d'Actualités",

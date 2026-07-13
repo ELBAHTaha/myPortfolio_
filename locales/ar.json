@@ -24,7 +24,7 @@
   },
   "about": {
     "title": "نبذة عني",
-    "bio": "مهندس برمجيات full-stack أبني تطبيقات إنتاجية باستخدام React وSpring Boot وNestJS وLaravel وPostgreSQL. أطلقت منصات ويب وأنظمة مدعومة بالذكاء الاصطناعي وواجهات API خلفية قابلة للتوسع — أكثر من 25 REST API في الإنتاج، نقاط نهاية محسّنة إلى أقل من 200ms — وتوليتها من التطوير إلى النشر والصيانة.",
+    "bio": "مهندس برمجيات full-stack أمتلك خبرة عملية في بناء تطبيقات إنتاجية باستخدام React وSpring Boot وNestJS وLaravel وPostgreSQL. أبني وأنشر منصات ويب وأنظمة مدعومة بالذكاء الاصطناعي وواجهات API خلفية قابلة للتوسع، بخبرة تشمل التطوير والنشر والصيانة.",
     "apisLabel": "API تم بناؤها",
     "internshipsLabel": "تدريبات",
     "accuracyLabel": "دقة ML",
@@ -47,6 +47,10 @@
   },
   "projects": {
     "title": "ما بنيته",
+    "all": "كل المشاريع",
+    "webPlatforms": "منصات الويب",
+    "aiData": "الذكاء الاصطناعي والبيانات",
+    "selectedCount": "{{count}} مختارة",
     "liveDemo": "عرض مباشر",
     "github": "GitHub",
     "ontarioPostTitle": "The Ontario Post — منصة إخبارية",

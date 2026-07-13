@@ -1,6 +1,5 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import About from "@/components/About";
 import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
 import Timeline from "@/components/Timeline";
@@ -15,7 +14,6 @@ export default function Home() {
     <main className="relative z-0 min-h-screen bg-paper">
       <Navbar />
       <Hero />
-      <About />
       <Timeline />
       <Projects />
       <Skills />

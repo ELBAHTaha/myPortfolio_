@@ -32,12 +32,12 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://tahaelbah.dev"),
-  title: "Taha El Bah — Software Engineer",
+  title: "Taha El Bah — Full-Stack Software Engineer",
   description:
-    "Software Engineer specializing in scalable API-driven backends with Spring Boot, PostgreSQL, React & ML. 25+ production APIs, 5 internships, open to new opportunities.",
+    "Full-stack software engineer building production web platforms, AI-powered systems, and scalable APIs with React, Spring Boot, NestJS, Laravel, and PostgreSQL.",
   keywords: [
     "Software Engineer",
-    "Backend Developer",
+    "Full-Stack Developer",
     "Spring Boot",
     "React",
     "API",
@@ -46,17 +46,17 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Taha El Bah", url: "https://github.com/ELBAHTaha" }],
   openGraph: {
-    title: "Taha El Bah — Software Engineer",
+    title: "Taha El Bah — Full-Stack Software Engineer",
     description:
-      "Building APIs that scale. Systems that last. Explore my portfolio.",
+      "Production web platforms, AI-powered systems, and scalable backend APIs.",
     url: "https://tahaelbah.dev",
     siteName: "Taha El Bah Portfolio",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Taha El Bah — Software Engineer",
-    description: "Building APIs that scale. Systems that last.",
+    title: "Taha El Bah — Full-Stack Software Engineer",
+    description: "Production web platforms, AI-powered systems, and scalable backend APIs.",
   },
 };
 

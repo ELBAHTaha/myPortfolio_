@@ -14,7 +14,7 @@ No lint or test scripts are configured.
 
 ## Architecture
 
-Single-page Next.js 15 portfolio. The only route is `app/page.tsx`, which renders all sections in order: `Navbar → Hero → About → Timeline → Projects → Skills → Stats → Contact → Footer`. Sections carry numbered editorial markers (`01 About`, `02 Experience`, `03 Projects`, `04 Skills`, `05 Contact`) that match this reading order and the `Navbar` links. (`Timeline` renders the "Experience" section; `Stats` is an unnumbered impact band.)
+Single-page Next.js 15 portfolio. The only route is `app/page.tsx`, which renders all sections in order: `Navbar → Hero/Profile → Timeline → Projects → Skills → Stats → Contact → Footer`. `Hero` integrates the introduction and About content into one continuous `#about` section. Sections carry numbered editorial markers (`01 About`, `02 Experience`, `03 Projects`, `04 Skills`, `05 Contact`) that match this reading order and the `Navbar` links. (`Timeline` renders the "Experience" section; `Stats` is an unnumbered impact band.)
 
 Every component in `components/` is a client component (`"use client"`). There are no server components outside of the root layout.
 

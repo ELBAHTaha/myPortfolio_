@@ -1,12 +1,13 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import { useRef, useState } from "react";
+import { AnimatePresence, motion, useInView, useReducedMotion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 
 const projects = [
   {
     id: "ontarioPost",
+    category: "web",
     badge: "Live",
     tags: ["React", "PHP", "MySQL", "n8n"],
     liveUrl: "https://ontariopost.ca",
@@ -14,6 +15,7 @@ const projects = [
   },
   {
     id: "aiResumeScreener",
+    category: "ai",
     badge: "Open Source",
     tags: ["NestJS", "FastAPI", "Next.js", "PostgreSQL", "Redis", "AWS"],
     liveUrl: null,
@@ -21,6 +23,7 @@ const projects = [
   },
   {
     id: "keyinov",
+    category: "web",
     badge: "Live",
     tags: ["React", "Laravel", "MySQL", "CI/CD"],
     liveUrl: "https://keyinov.com",
@@ -28,6 +31,7 @@ const projects = [
   },
   {
     id: "ecommerce",
+    category: "web",
     badge: "Live",
     tags: ["Laravel", "React", "WooCommerce", "SQL", "CI/CD"],
     liveUrl: "https://innoland.ma",
@@ -35,6 +39,7 @@ const projects = [
   },
   {
     id: "spx500",
+    category: "ai",
     badge: "Machine Learning",
     tags: ["Python", "scikit-learn", "XGBoost", "SHAP"],
     liveUrl: null,
@@ -42,12 +47,22 @@ const projects = [
   },
 ];
 
+const filters = [
+  { id: "all", label: "projects.all" },
+  { id: "web", label: "projects.webPlatforms" },
+  { id: "ai", label: "projects.aiData" },
+] as const;
+
 export default function Projects() {
   const { t } = useTranslation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const reduced = useReducedMotion();
+  const [activeFilter, setActiveFilter] = useState<(typeof filters)[number]["id"]>("all");
   const ease = [0.22, 1, 0.36, 1] as const;
+  const visibleProjects = projects.filter(
+    (project) => activeFilter === "all" || project.category === activeFilter
+  );
 
   return (
     <section id="projects" className="py-[var(--section-y)]">
@@ -65,25 +80,50 @@ export default function Projects() {
           </div>
           <div className="col-span-12 md:col-span-3 md:text-right">
             <span className="label text-ink-muted">
-              {projects.length} selected
+              {t("projects.selectedCount", { count: visibleProjects.length })}
             </span>
           </div>
         </header>
 
+        <div className="flex flex-wrap items-center gap-2 mb-8 md:mb-10" aria-label="Project filters">
+          {filters.map((filter) => {
+            const active = activeFilter === filter.id;
+            return (
+              <button
+                key={filter.id}
+                type="button"
+                onClick={() => setActiveFilter(filter.id)}
+                aria-pressed={active}
+                className={`label px-4 py-2 border transition-colors duration-200 cursor-pointer ${
+                  active
+                    ? "border-ink bg-ink text-paper"
+                    : "border-rule text-ink-muted hover:border-ink hover:text-ink"
+                }`}
+              >
+                {t(filter.label)}
+              </button>
+            );
+          })}
+        </div>
+
         {/* Entries */}
-        <ol>
-          {projects.map((p, i) => {
+        <motion.ol layout={!reduced}>
+          <AnimatePresence mode="popLayout" initial={false}>
+          {visibleProjects.map((p) => {
+            const i = projects.findIndex((project) => project.id === p.id);
             const primary = p.liveUrl ?? p.githubUrl;
             const title = t(`${"projects."}${p.id}Title`);
             return (
               <motion.li
                 key={p.id}
-                className="group border-t border-rule last:border-b"
+                layout={!reduced}
+                exit={reduced ? {} : { opacity: 0, y: -12 }}
+                className="group border-t border-rule last:border-b transition-colors duration-300 hover:bg-paper-sunk/60 focus-within:bg-paper-sunk/60"
                 initial={reduced ? {} : { opacity: 0, y: 28 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: i * 0.08, ease }}
               >
-                <div className="grid grid-cols-12 gap-x-4 gap-y-5 py-8 md:py-10">
+                <div className="grid grid-cols-12 gap-x-4 gap-y-5 py-8 md:py-10 px-3 md:px-5 -mx-3 md:-mx-5">
                   {/* Index */}
                   <div className="col-span-12 md:col-span-1">
                     <span className="font-mono tabular-nums text-sm text-ink-faint transition-colors duration-200 group-hover:text-accent">
@@ -166,7 +206,8 @@ export default function Projects() {
               </motion.li>
             );
           })}
-        </ol>
+          </AnimatePresence>
+        </motion.ol>
       </div>
     </section>
   );

@@ -17,10 +17,13 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 40);
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress(scrollable > 0 ? Math.min(window.scrollY / scrollable, 1) : 0);
       const pos = window.scrollY + 140;
       let current = "";
       for (const id of navSections) {
@@ -145,6 +148,11 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
+      <span
+        className="absolute bottom-[-1px] left-0 h-[2px] bg-accent origin-left"
+        style={{ width: `${scrollProgress * 100}%` }}
+        aria-hidden="true"
+      />
     </motion.nav>
   );
 }

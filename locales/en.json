@@ -24,7 +24,7 @@
   },
   "about": {
     "title": "About Me",
-    "bio": "Full-stack software engineer building production applications with React, Spring Boot, NestJS, Laravel and PostgreSQL. I've shipped web platforms, AI-powered systems and scalable backend APIs — 25+ production REST APIs, endpoints tuned to sub-200ms — and owned them across development, deployment and maintenance.",
+    "bio": "Full-stack software engineer with hands-on experience building production applications using React, Spring Boot, NestJS, Laravel, and PostgreSQL. Built and deployed web platforms, AI-powered systems, and scalable backend APIs with experience across development, deployment, and maintenance.",
     "apisLabel": "APIs Built",
     "internshipsLabel": "Internships",
     "accuracyLabel": "ML Accuracy",
@@ -47,6 +47,10 @@
   },
   "projects": {
     "title": "What I've Built",
+    "all": "All work",
+    "webPlatforms": "Web platforms",
+    "aiData": "AI & data",
+    "selectedCount": "{{count}} selected",
     "liveDemo": "Live Demo",
     "github": "GitHub",
     "ontarioPostTitle": "The Ontario Post — News Platform",
