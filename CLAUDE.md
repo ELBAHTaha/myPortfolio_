@@ -18,7 +18,7 @@ Single-page Next.js 15 portfolio. The only route is `app/page.tsx`, which render
 
 Every component in `components/` is a client component (`"use client"`). There are no server components outside of the root layout.
 
-The design language is **Editorial Technical** — a print/Swiss-grotesque feel: warm paper ground, near-black ink, a single vermilion accent, hairline rules, numbered section markers, and type-led layouts. Avoid reintroducing gradients, glassmorphism, glows, particle/blob backgrounds, or emoji icons.
+The design language is **Editorial Technical** — a print/Swiss-grotesque feel: warm paper ground, near-black ink, a single blue accent, hairline rules, numbered section markers, and type-led layouts. Avoid reintroducing gradients, glassmorphism, glows, particle/blob backgrounds, or emoji icons.
 
 ### Internationalisation
 
@@ -52,8 +52,8 @@ These are already present in `.env` (committed — they are public browser keys,
 ### CV download
 
 `Hero.tsx` and `Navbar.tsx` both derive the CV link from the active language:
-- `en` → `/TahaElBah_Resume_eng.pdf`
-- `fr` → `/Taha_ElBah_CVfr%20(1).pdf`
+- `en` → `/TahaElBah_cveng.pdf`
+- `fr` → `/TahaElBah_CV_fr.pdf`
 
 Both PDFs must exist in `public/`.
 
@@ -68,4 +68,4 @@ Fonts are self-hosted via `next/font/google` in the root layout:
 - `--font-body` → Mona Sans (`font-body`)
 - `--font-mono` → JetBrains Mono — accent only, for labels/metadata/figures (`font-mono`)
 
-The favicon is `app/icon.svg` (ink square, serif `T`, vermilion dot).
+The favicon is `app/icon.svg` (ink square, serif `T`, blue dot).

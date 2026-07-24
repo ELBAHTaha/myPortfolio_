@@ -13,7 +13,7 @@ export default function Navbar() {
   const { t } = useTranslation();
   const { language } = useLanguage();
   const cvHref =
-    language === "fr" ? "/Taha_ElBah_CVfr%20(1).pdf" : "/TahaElBah_Resume_eng.pdf";
+    language === "fr" ? "/TahaElBah_CV_fr.pdf" : "/TahaElBah_cveng.pdf";
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
@@ -60,7 +60,7 @@ export default function Navbar() {
           className="font-display text-xl text-ink leading-none cursor-pointer shrink-0"
           aria-label="Back to top"
         >
-          Taha El Bah<span className="text-accent">.</span>
+          Taha El Bah
         </button>
 
         {/* Desktop links */}

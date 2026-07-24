@@ -20,7 +20,7 @@ export default function Hero() {
   const { language } = useLanguage();
   const reduced = useReducedMotion();
   const cvHref =
-    language === "fr" ? "/Taha_ElBah_CVfr%20(1).pdf" : "/TahaElBah_Resume_eng.pdf";
+    language === "fr" ? "/TahaElBah_CV_fr.pdf" : "/TahaElBah_cveng.pdf";
 
   // Staggered page-load reveal
   const ease = [0.22, 1, 0.36, 1] as const;
@@ -75,7 +75,6 @@ export default function Hero() {
               <span className="block">{toTitle(t("hero.name")).split(" ")[0]}</span>
               <span className="block">
                 {toTitle(t("hero.name")).split(" ").slice(1).join(" ")}
-                <span className="text-accent">.</span>
               </span>
             </motion.h1>
 
@@ -100,7 +99,7 @@ export default function Hero() {
                   fill
                   priority
                   sizes="(max-width: 1024px) 50vw, 320px"
-                  className="object-cover object-top grayscale contrast-[1.05] scale-[1.01] transition-[filter,transform] duration-500 ease-editorial group-hover:grayscale-0 group-hover:scale-[1.04]"
+                  className="object-cover object-top contrast-[1.05] scale-[1.01] transition-transform duration-500 ease-editorial group-hover:scale-[1.04]"
                 />
               </div>
               <span

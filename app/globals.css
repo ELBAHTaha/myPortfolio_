@@ -4,7 +4,7 @@
 
 /* ============================================================
    EDITORIAL TECHNICAL — Design tokens
-   Ground: warm paper · Ink: near-black · Accent: vermilion
+   Ground: warm paper · Ink: near-black · Accent: blue
    ============================================================ */
 :root {
   /* — Color — */
@@ -13,8 +13,8 @@
   --ink: #16130d;          /* near-black warm ink */
   --ink-muted: #645c52;    /* secondary text (~5.6:1 on paper) */
   --ink-faint: #837a6c;    /* tertiary: numerals, rules, metadata */
-  --accent: #e5481d;       /* vermilion — one sharp accent */
-  --accent-deep: #c43c16;  /* pressed / hover accent */
+  --accent: #2563eb;       /* blue — one sharp accent */
+  --accent-deep: #1d4ed8;  /* pressed / hover accent */
   --on-accent: #f6f2ea;    /* text on accent */
   --rule: rgba(22, 19, 13, 0.16);   /* hairline rules */
   --rule-strong: rgba(22, 19, 13, 0.32);

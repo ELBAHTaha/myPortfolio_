@@ -76,7 +76,7 @@ export default function About() {
                   alt="Portrait of Taha El Bah"
                   fill
                   sizes="(max-width: 768px) 100vw, 320px"
-                  className="object-cover object-top grayscale contrast-[1.05] transition-[filter] duration-500 group-hover:grayscale-0"
+                  className="object-cover object-top contrast-[1.05]"
                   loading="lazy"
                 />
               </div>

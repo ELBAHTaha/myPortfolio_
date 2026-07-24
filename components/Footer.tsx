@@ -25,7 +25,7 @@ export default function Footer() {
             style={{ fontSize: "var(--step-3)" }}
             aria-label="Back to top"
           >
-            Taha El Bah<span className="text-accent">.</span>
+            Taha El Bah
           </button>
           <p className="label text-ink-muted mt-6">{t("footer.built")}</p>
         </div>
